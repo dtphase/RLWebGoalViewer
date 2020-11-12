@@ -1,3 +1,3 @@
 # RLWebGoalViewer
 
-Run tests with vendor\bin\phpunit
+Run tests with php artisan dusk
