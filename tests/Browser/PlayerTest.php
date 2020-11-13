@@ -23,7 +23,15 @@ class PlayerTest extends DuskTestCase
     {
         $steamId = "76561198174027955";
         $this->browse(function ($browser) {
-            $browser->visit(env('APP_URL', null) . '/replays/76561198174027955')->assertSee('steam_id');
+            $browser->visit(env('APP_URL', null) . '/api/replays/76561198174027955')->assertSee('steam_id');
+        });
+    }
+
+    public function testDownloadReplayById()
+    {
+        $replayId = "6c7b1dc3-176b-4d8a-a3e5-042055574a69";
+        $this->browse(function ($browser) {
+            $browser->visit(env('APP_URL', null) . '/api/replays/6c7b1dc3-176b-4d8a-a3e5-042055574a69/download')->assertSee('Success');
         });
     }
 }

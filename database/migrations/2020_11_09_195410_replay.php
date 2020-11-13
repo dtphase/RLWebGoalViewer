@@ -17,10 +17,10 @@ class Replay extends Migration
             $table->id();
             $table->text('replay_id');
             $table->text('status');
-            $table->text('players');
-            $table->longText('data');
-            $table->longText('analysis');
-            $table->text('goals');
+            $table->text('players')->nullable();
+            $table->longText('analysis')->nullable();
+            $table->text('goals')->nullable();
+            $table->timestamps();
         });
     }
 
