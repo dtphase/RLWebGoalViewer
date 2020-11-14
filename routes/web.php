@@ -20,6 +20,6 @@ Route::get('/', function () {
 
 Route::get('/api/replays/{steamId}', [PlayerController::class, 'getReplaysBySteamId']);
 
-Route::get('/api/replays/{replayId}/download', [PlayerController::class, 'downloadReplayById']);
+Route::get('/api/replays/{replayId}/download', [ReplayController::class, 'downloadReplayById']);
 
-Route::get('/api/replays/{replayId}/store', [PlayerController::class, 'storeReplay']);
+Route::get('/api/replays/{replayId}/store', [ReplayController::class, 'storeReplay']);

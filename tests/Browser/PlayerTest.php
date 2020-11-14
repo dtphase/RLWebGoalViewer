@@ -27,11 +27,4 @@ class PlayerTest extends DuskTestCase
         });
     }
 
-    public function testDownloadReplayById()
-    {
-        $replayId = "6c7b1dc3-176b-4d8a-a3e5-042055574a69";
-        $this->browse(function ($browser) {
-            $browser->visit(env('APP_URL', null) . '/api/replays/6c7b1dc3-176b-4d8a-a3e5-042055574a69/download')->assertSee('Success');
-        });
-    }
 }
