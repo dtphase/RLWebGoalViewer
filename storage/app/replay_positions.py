@@ -59,12 +59,13 @@ class ReplayPositions:
         game_frames = data_frame['game'][['delta', 'seconds_remaining', 'time']].fillna(-100)
 
         return ReplayPositions(
-            id_=id_,
+            
             ball=ball_df.values.tolist(),
-            players=players_data,
             colors=[player.is_orange for player in players],
+            frames=game_frames.values.tolist(),
+            id_=id_,
             names=[player.name for player in players],
-            frames=game_frames.values.tolist()
+            players=players_data
         )
 
     @staticmethod
