@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\ReplayController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +24,5 @@ Route::get('/api/replays/{steamId}', [PlayerController::class, 'getReplaysByStea
 Route::get('/api/replays/{replayId}/download', [ReplayController::class, 'downloadReplayById']);
 
 Route::get('/api/replays/{replayId}/store', [ReplayController::class, 'storeReplay']);
+
+Route::get('/api/replays/{replayId}/analyze', [ReplayController::class, 'analyzeReplay']);

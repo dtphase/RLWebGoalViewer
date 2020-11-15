@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Replay;
+use App\Http\Controllers\Storage;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class ReplayController extends Controller
 {
     public function downloadReplayById($replayId) {
         $endpoint = "https://ballchasing.com/api/replays/";
-        $toFile = 'C:\laragon\www\goalviewer\storage\temp.replay';
+        //$toFile = 'C:\laragon\www\goalviewer\storage\temp.replay';
         $client = new \GuzzleHttp\Client();
         
         $response = $client->request('GET', $endpoint . $replayId . '/file', 
@@ -20,7 +23,7 @@ class ReplayController extends Controller
         ]);
         $body = $response->getBody();
         $data = $body->getContents();
-        Storage::put('temp.replay', $data);
+        \Storage::put('temp.replay', $data);
         // $replayFile = fopen($toFile, "w");
         // fwrite($replayFile, $data);
         // fclose($replayFile);
@@ -38,5 +41,20 @@ class ReplayController extends Controller
         $replay->save();
         Storage::move("temp.replay", 'replays/' . $replayId . '.replay');
         return 'Success';
+    }
+
+    public function analyzeReplay($replayId) {
+        $replay = Replay::where('replay_id', $replayId)->first();
+        
+
+        $process = new Process(['c:\python37    \python.exe', \Storage::path('analyzeReplay.py')]);// -i ' . \Storage::path('replays/' . $replay["replay_id"]. '.replay') . '--json analysis.json --proto analysis.pts --gzip frames.gzip']);
+        $process->run();
+
+        // executes after the command finishes
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        echo $process->getOutput();
     }
 }
