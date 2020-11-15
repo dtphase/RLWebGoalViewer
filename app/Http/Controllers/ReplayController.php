@@ -39,7 +39,7 @@ class ReplayController extends Controller
         $replay->replay_id = $replayId;
         $replay->status = 'NEW';
         $replay->save();
-        Storage::move("temp.replay", 'replays/' . $replayId . '.replay');
+        \Storage::move("temp.replay", 'replays/' . $replayId . '/' . $replayId . '.replay');
         return 'Success';
     }
 
@@ -47,7 +47,7 @@ class ReplayController extends Controller
         $replay = Replay::where('replay_id', $replayId)->first();
         
 
-        $process = new Process(['c:\python37    \python.exe', \Storage::path('analyzeReplay.py')]);// -i ' . \Storage::path('replays/' . $replay["replay_id"]. '.replay') . '--json analysis.json --proto analysis.pts --gzip frames.gzip']);
+        $process = new Process(['python', \Storage::path('analyzeReplay.py'), $replayId]);// -i ' . \Storage::path('replays/' . $replay["replay_id"]. '.replay') . '--json analysis.json --proto analysis.pts --gzip frames.gzip']);
         $process->run();
 
         // executes after the command finishes
