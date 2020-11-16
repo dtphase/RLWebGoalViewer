@@ -10,6 +10,7 @@ import json
 from replay_positions import ReplayPositions
 
 replay_id = sys.argv[1]
+player_id = sys.argv[2]
 
 pl = ""
 
@@ -28,7 +29,7 @@ analysis_manager.create_analysis()
 proto_object = analysis_manager.get_protobuf_data()
 
 # return the proto object as a json object
-json_oject = analysis_manager.get_json_data()
+json_object = analysis_manager.get_json_data()
 
 # return the pandas data frame in python
 dataframe = analysis_manager.get_data_frame()
@@ -39,37 +40,22 @@ dataframe = analysis_manager.get_data_frame()
 if not os.path.exists('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id):
     os.makedirs('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id)
 
-
-
 with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/metadata.json', 'w') as fo:
     analysis_manager.write_json_out_to_file(fo)
     
-# write pandas dataframe out as a gzipped numpy array
-with gzip.open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/positions.gzip', 'wb') as fo:
-    analysis_manager.write_pandas_out_to_file(fo)
-
-to_j = dataframe.to_json(None, 'split')
-lists = dataframe.values.tolist()
-json_str = json.dumps(lists)
-
-for label, content in dataframe.items():  
-    if label == ('ball', 'pos_x'):
-        print("Here")
-        print(label)
-        print(content)
-
-        
-
 jd = json.dumps(ReplayPositions.create_from_id(dataframe, proto_object, replay_id).__dict__)
 with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/positions.json', 'w') as fo:
     fo.write(jd)
 
-print(dataframe.columns)
-print(dataframe.axes)
-print(dataframe.info(True))
 
-print("Alert!")
-print("Alert!")
-print('Success')
 
-#python analyzeReplay.py 6c7b1dc3-176b-4d8a-a3e5-042055574a69
+goals = json_object["gameMetadata"]["goals"]
+goal_frames = []
+proto_game = json_object
+for goal in goals:
+    if goal["playerId"]["id"] == player_id:
+        goal_frames.append(goal["frameNumber"])
+
+with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/goals.json', 'w') as fo:
+    fo.write(json.dumps(goal_frames))
+#python analyzeReplay.py 6c7b1dc3-176b-4d8a-a3e5-042055574a69 76561198174027955
