@@ -26,3 +26,7 @@ Route::get('/api/replays/{replayId}/download', [ReplayController::class, 'downlo
 Route::get('/api/replays/{replayId}/store', [ReplayController::class, 'storeReplay']);
 
 Route::get('/api/replays/{replayId}/analyze', [ReplayController::class, 'analyzeReplay']);
+
+Route::get('/api/replays/active/{playerId}', [ReplayController::class, 'getActiveReplay']);
+
+Route::get('/api/replays/active/{playerId}/next', [ReplayController::class, 'nextActiveReplay']);

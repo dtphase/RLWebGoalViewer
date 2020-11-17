@@ -57,4 +57,18 @@ class ReplayController extends Controller
 
         echo $process->getOutput();
     }
+
+    public function getActiveReplay($playerId) {
+        $replay = Replay::where('status', 'NEW')->first();
+        echo json_encode([$replay->replay_id, $playerId]);
+    }
+
+    public function nextActiveReplay($playerId) {
+        $replay = Replay::where('status', 'NEW')->first();
+        $next = Replay::where('id', $replay->id + 1)->first();
+        echo json_encode([$next->replay_id, $playerId]);
+    }
 }
+
+
+//http://localhost:4000/?replay_id=6c7b1dc3-176b-4d8a-a3e5-042055574a69&player_id=76561198174027955&goals=1234,1235,1299
