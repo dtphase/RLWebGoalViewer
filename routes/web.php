@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/players', [PlayerController::class, 'displayPlayerList']);
+
+Route::get('/replays/{replayId}', [PlayerController::class, 'displayPlayerReplayList']);
+
 Route::get('/api/replays/{steamId}', [PlayerController::class, 'getReplaysBySteamId']);
 
 Route::get('/api/replays/{replayId}/download', [ReplayController::class, 'downloadReplayById']);

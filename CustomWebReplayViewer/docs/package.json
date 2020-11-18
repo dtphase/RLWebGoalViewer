@@ -1,0 +1,34 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "Examples for the web replay viewer",
+  "main": "src/index.tsx",
+  "scripts": {
+    "start": "npx webpack-dev-server --inline --progress --mode development --port 4000 --debug --output-pathinfo"
+  },
+  "keywords": [
+    "Examples",
+    "Replay",
+    "Viewer",
+    "React"
+  ],
+  "author": "Saltie",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react-dom": "^16.9.5",
+    "autodll-webpack-plugin": "^0.4.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.0",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

@@ -1,0 +1,11 @@
+.*
+**/tsconfig.json
+**/webpack.config.js
+node_modules
+src
+examples
+copy.js
+docs
+types
+rollup.config.ts
+**/archive

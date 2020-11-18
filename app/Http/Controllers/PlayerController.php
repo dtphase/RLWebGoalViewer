@@ -34,7 +34,19 @@ class PlayerController extends Controller
         return $data['list'];
     }
 
-    
+    public function displayPlayerList() {
+        return '<a href="http://goalviewer.test/replays/76561198174027955">76561198174027955</a>';
+    }
+
+    public function displayPlayerReplayList($playerId) {
+        $replays = $this->getReplaysBySteamId($playerId);
+        $html = '<ul>';
+        foreach($replays as $replay) {
+            
+            $html .= '<li><a href="http://goalviewer.test/replays/' . $replay['id'] . '">' .  $replay['id'] . '</a></li>';
+        }
+        return $html . '</ul>';
+    }
 }
 
 //http://goalviewer.test/api/replays/76561198174027955
