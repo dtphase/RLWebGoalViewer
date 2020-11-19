@@ -70,12 +70,19 @@ $replay->save();
         echo json_encode([$next->replay_id, $playerId]);
     }
 
-public function downloadStoreAnalyze($replayId) {
-$this->downloadReplayById($replayId);
-$this->storeReplay($replayId);
-$this->analyzeReplay($replayId);
+    public function downloadStoreAnalyze($replayId) {
+        $this->downloadReplayById($replayId);
+        $this->storeReplay($replayId);
+        $this->analyzeReplay($replayId);
+    }
+    
+    public function displayViewerUrl($replayId, $playerId) {
+        $replay = Replay::where('replay_id', $replayId)->first();
+        return 'http://localhost:4000?replay_id=' . $replayId . '&player_id=' . $playerId . '&goals=' . $replay->goals;
+    }
 }
-}
+
+    
 
 
 //http://localhost:4000/?replay_id=6c7b1dc3-176b-4d8a-a3e5-042055574a69&player_id=76561198174027955&goals=1234,1235,1299
