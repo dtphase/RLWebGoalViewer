@@ -68,6 +68,12 @@ class ReplayController extends Controller
         $next = Replay::where('id', $replay->id + 1)->first();
         echo json_encode([$next->replay_id, $playerId]);
     }
+
+public function downloadStoreAnalyze($replayId) {
+$this->downloadReplayById($replayId);
+$this->storeReplay($replayId);
+$this->analyzeReplay($replayId);
+}
 }
 
 
