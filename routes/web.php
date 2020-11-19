@@ -34,3 +34,5 @@ Route::get('/api/replays/{replayId}/analyze', [ReplayController::class, 'analyze
 Route::get('/api/replays/active/{playerId}', [ReplayController::class, 'getActiveReplay']);
 
 Route::get('/api/replays/active/{playerId}/next', [ReplayController::class, 'nextActiveReplay']);
+
+Route::get('/api/replays/{replayId}/dsa');
