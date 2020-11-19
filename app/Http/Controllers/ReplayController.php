@@ -80,6 +80,15 @@ $replay->save();
         $replay = Replay::where('replay_id', $replayId)->first();
         return 'http://localhost:4000?replay_id=' . $replayId . '&player_id=' . $playerId . '&goals=' . $replay->goals;
     }
+    
+    public function displayViewerLinkList($playerId) {
+        $html = '';
+        $replays = Replay::take(10);//where('replay_id', $replayId)->take(10);
+        foreach($replays as $replay) {
+            $html .= $this->displayViewerUrl($replay->replay_id, $playerId);
+        }
+        return $html;
+    }
 }
 
     
