@@ -41,7 +41,7 @@ export default class PlayControls extends Component<Props, State> {
     const replay_id = params.get('replay_id');
     const player_id = params.get('player_id');
     var a = params.get('goals')?.split(',');
-    var a2 = require("C:/laragon/www/goalviewer/storage/app/replays/" + replay_id + "/metadata.json");
+    var a2 = require("C:/laragon/www/goalviewer/CustomWebReplayViewer/docs/examples/" + replay_id + "/metadata.json");
     return [a, a2, replay_id, player_id];
   }
 

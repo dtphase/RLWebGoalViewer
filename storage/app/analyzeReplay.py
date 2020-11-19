@@ -52,15 +52,17 @@ with open(path + replay_id + '/positions.json', 'w') as fo:
 
 
 goals = json_object["gameMetadata"]["goals"]
-goal_frames = ['Goals:']
+goal_frames = []
 proto_game = json_object
 for goal in goals:
     if goal["playerId"]["id"] == player_id:
-        goal_frames.append(goal["frameNumber"])
-        print
+        goal_frames.append(str(goal["frameNumber"]))
 
 #with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/goals.json', 'w') as fo:
 #    fo.write(json.dumps(goal_frames))
 
-print(goal_frames)
+#print('::' + goal_frames)
+separator = ','
+string = separator.join(goal_frames)
+print('::' + replay_id + '::' + player_id + '::' + string)
 #python analyzeReplay.py 6c7b1dc3-176b-4d8a-a3e5-042055574a69 76561198174027955

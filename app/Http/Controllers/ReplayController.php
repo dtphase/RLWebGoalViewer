@@ -54,9 +54,14 @@ class ReplayController extends Controller
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
-        $replay->goals = $process->getOutput();
+        $args = explode("::", $process->getOutput());
+        $playerNames = $args[0];
+        $replayId = $args[1];
+        $playerId = $args[2];
+        $goals = $args[3];
+        $replay->goals = $goals;
         $replay->save();
-        echo $process->getOutput();
+        echo '<a href=http://localhost:4000/?replay_id='.$replayId.'&player_id='.$playerId.'&goals='. $goals .'>Replay</a>';
     }
 
     public function getActiveReplay($playerId) {
