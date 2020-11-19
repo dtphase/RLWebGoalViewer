@@ -54,7 +54,8 @@ class ReplayController extends Controller
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
-
+$replay->goals = $process->getOutput();
+$replay->save();
         echo $process->getOutput();
     }
 
