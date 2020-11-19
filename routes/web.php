@@ -21,7 +21,11 @@ Route::get('/', function () {
 
 Route::get('/players', [PlayerController::class, 'displayPlayerList']);
 
-Route::get('/replays/{replayId}', [PlayerController::class, 'displayPlayerReplayList']);
+Route::get('/replays/{replayId}', [ReplayController::class, 'displayViewerLinkList']);
+
+Route::get('/replaylist/{playerId}', [PlayerController::class, 'displayPlayerReplayList']);
+
+Route::get('/replays/{replayId}/dsa/{playerId}', [ReplayController::class, 'downloadStoreAnalyze']);
 
 Route::get('/api/replays/{steamId}', [PlayerController::class, 'getReplaysBySteamId']);
 

@@ -37,27 +37,30 @@ dataframe = analysis_manager.get_data_frame()
 # write proto out to a file
 # read api/*.proto for info on the object properties
 
-if not os.path.exists('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id):
-    os.makedirs('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id)
+path = 'C:/laragon/www/goalviewer/CustomWebReplayViewer/docs/examples/'
 
-with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/metadata.json', 'w') as fo:
+if not os.path.exists(path + replay_id):
+    os.makedirs(path + replay_id)
+
+with open(path + replay_id + '/metadata.json', 'w') as fo:
     analysis_manager.write_json_out_to_file(fo)
     
 jd = json.dumps(ReplayPositions.create_from_id(dataframe, proto_object, replay_id).__dict__)
-with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/positions.json', 'w') as fo:
+with open(path + replay_id + '/positions.json', 'w') as fo:
     fo.write(jd)
 
 
 
 goals = json_object["gameMetadata"]["goals"]
-goal_frames = []
+goal_frames = ['Goals:']
 proto_game = json_object
 for goal in goals:
     if goal["playerId"]["id"] == player_id:
         goal_frames.append(goal["frameNumber"])
+        print
 
-with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/goals.json', 'w') as fo:
-    fo.write(json.dumps(goal_frames))
+#with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/goals.json', 'w') as fo:
+#    fo.write(json.dumps(goal_frames))
 
 print(goal_frames)
 #python analyzeReplay.py 6c7b1dc3-176b-4d8a-a3e5-042055574a69 76561198174027955

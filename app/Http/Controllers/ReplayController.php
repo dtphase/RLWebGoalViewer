@@ -39,23 +39,23 @@ class ReplayController extends Controller
         $replay->replay_id = $replayId;
         $replay->status = 'NEW';
         $replay->save();
-        \Storage::move("temp.replay", 'replays/' . $replayId . '/' . $replayId . '.replay');
+        \Storage::move("temp.replay", 'replays/' . $replayId . '/' . $replayId . '.replay'); //temp
         return 'Success';
     }
 
-    public function analyzeReplay($replayId) {
+    public function analyzeReplay($replayId, $playerId) {
         $replay = Replay::where('replay_id', $replayId)->first();
         
 
-        $process = new Process(['python', \Storage::path('analyzeReplay.py'), $replayId]);// -i ' . \Storage::path('replays/' . $replay["replay_id"]. '.replay') . '--json analysis.json --proto analysis.pts --gzip frames.gzip']);
+        $process = new Process(['python', \Storage::path('analyzeReplay.py'), $replayId, $playerId]);// -i ' . \Storage::path('replays/' . $replay["replay_id"]. '.replay') . '--json analysis.json --proto analysis.pts --gzip frames.gzip']);
         $process->run();
 
         // executes after the command finishes
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
-$replay->goals = $process->getOutput();
-$replay->save();
+        $replay->goals = $process->getOutput();
+        $replay->save();
         echo $process->getOutput();
     }
 
@@ -70,10 +70,10 @@ $replay->save();
         echo json_encode([$next->replay_id, $playerId]);
     }
 
-    public function downloadStoreAnalyze($replayId) {
+    public function downloadStoreAnalyze($replayId, $playerId) {
         $this->downloadReplayById($replayId);
         $this->storeReplay($replayId);
-        $this->analyzeReplay($replayId);
+        $this->analyzeReplay($replayId, $playerId);
     }
     
     public function displayViewerUrl($replayId, $playerId) {
@@ -83,7 +83,7 @@ $replay->save();
     
     public function displayViewerLinkList($playerId) {
         $html = '';
-        $replays = Replay::take(10);//where('replay_id', $replayId)->take(10);
+        $replays = Replay::where('player_id', $playerId)->take(10);
         foreach($replays as $replay) {
             $html .= $this->displayViewerUrl($replay->replay_id, $playerId);
         }
@@ -94,4 +94,4 @@ $replay->save();
     
 
 
-//http://localhost:4000/?replay_id=6c7b1dc3-176b-4d8a-a3e5-042055574a69&player_id=76561198174027955&goals=1234,1235,1299
+//http://localhost:4000/?replay_id=b2170769-3858-4cd3-a258-3ed0e034777e&player_id=76561198174027955&goals=17169,25047

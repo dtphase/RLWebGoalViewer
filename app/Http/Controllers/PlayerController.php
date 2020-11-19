@@ -43,7 +43,7 @@ class PlayerController extends Controller
         $html = '<ul>';
         foreach($replays as $replay) {
             
-            $html .= '<li><a href="http://goalviewer.test/replays/' . $replay['id'] . '">' .  $replay['id'] . '</a></li>';
+            $html .= '<li><a href="http://goalviewer.test/replays/' . $replay['id'] . '/dsa' . '/' . $playerId . '">' .  $replay['id'] . '</a></li>';
         }
         return $html . '</ul>';
     }
