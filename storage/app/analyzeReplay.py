@@ -58,4 +58,6 @@ for goal in goals:
 
 with open('C:/laragon/www/goalviewer/storage/app/replays/' + replay_id + '/goals.json', 'w') as fo:
     fo.write(json.dumps(goal_frames))
+
+print(goal_frames)
 #python analyzeReplay.py 6c7b1dc3-176b-4d8a-a3e5-042055574a69 76561198174027955
